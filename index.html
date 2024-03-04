@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Captura</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    input[type="text"], input[type="email"], input[type="tel"], input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>Preencha o formulário</h2>
+        <form id="myForm" action="#" method="post" onsubmit="return validateForm()">
+            <input type="text" id="nome" name="nome" placeholder="Nome" required><br>
+            <span id="nomeError" class="error"></span><br>
+            <input type="email" id="email" name="email" placeholder="E-mail" required><br>
+            <span id="emailError" class="error"></span><br>
+            <input type="tel" id="telefone" name="telefone" placeholder="Telefone" required><br>
+            <span id="telefoneError" class="error"></span><br>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            var nome = document.getElementById("nome").value;
+            var email = document.getElementById("email").value;
+            var telefone = document.getElementById("telefone").value;
+            var nomeError = document.getElementById("nomeError");
+            var emailError = document.getElementById("emailError");
+            var telefoneError = document.getElementById("telefoneError");
+            var isValid = true;
+
+            nomeError.innerHTML = "";
+            emailError.innerHTML = "";
+            telefoneError.innerHTML = "";
+
+            if (nome == "") {
+                nomeError.innerHTML = "Por favor, insira o seu nome.";
+                isValid = false;
+            }
+
+            if (email == "") {
+                emailError.innerHTML = "Por favor, insira o seu e-mail.";
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                emailError.innerHTML = "Por favor, insira um e-mail válido.";
+                isValid = false;
+            }
+
+            if (telefone == "") {
+                telefoneError.innerHTML = "Por favor, insira o seu telefone.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateEmail(email) {
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
